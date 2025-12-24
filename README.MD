@@ -36,7 +36,7 @@ The script supports the following Linux distributions:
 
 ### 1. System Tuning (`sysctl`)
 A comprehensive set of kernel parameters is applied to optimize networking, memory management, and filesystem performance.
-- **File**: [`etc/sysctl.d/99-performance-tuning.conf`](etc/sysctl.d/99-performance-tuning.conf)
+- **File**: [`etc/sysctl.d/99-performance-tuning.conf`](etc/sysctl.d/999-performance-tuning.conf)
 - **Key Optimizations**: Increased file descriptors, optimized TCP stack (congestion control, keepalives), and virtual memory tuning.
 
 ### 2. Shell Customization (`starship` & `bashrc`)

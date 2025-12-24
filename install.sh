@@ -169,7 +169,7 @@ install_repo_rhel() {
 
 install_sysctl_config() {
     echo "Downloading 'sysctl' performance tuning configuration..."
-    SYSCTL_CONFIG_URL="https://raw.githubusercontent.com/ytcalifax/dotfiles/refs/heads/master/etc/sysctl.d/99-performance-tuning.conf"
+    SYSCTL_CONFIG_URL="https://raw.githubusercontent.com/ytcalifax/dotfiles/refs/heads/master/etc/sysctl.d/999-performance-tuning.conf"
     TEMP_SYSCTL=$(mktemp)
 
     if ! curl -sS "$SYSCTL_CONFIG_URL" -o "$TEMP_SYSCTL"; then
@@ -180,10 +180,10 @@ install_sysctl_config() {
 
     echo "Installing 'sysctl' performance tuning configuration..."
     mkdir -p /etc/sysctl.d
-    cp "$TEMP_SYSCTL" /etc/sysctl.d/99-performance-tuning.conf
+    cp "$TEMP_SYSCTL" /etc/sysctl.d/999-performance-tuning.conf
 
     echo "Applying 'sysctl' parameters..."
-    sysctl -p /etc/sysctl.d/99-performance-tuning.conf >/dev/null 2>&1
+    sysctl -p /etc/sysctl.d/999-performance-tuning.conf >/dev/null 2>&1
 
     rm -f "$TEMP_SYSCTL"
     echo "Sysctl configuration installed and applied successfully"
