@@ -1,0 +1,7 @@
+# system-wide customizations
+clear
+fastfetch
+eval "$(starship init bash)"
+
+# system-wide aliases
+alias btop='sudo btop'
