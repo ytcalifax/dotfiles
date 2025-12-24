@@ -200,24 +200,35 @@ install_bashrc_customizations() {
         return 1
     fi
 
-    echo "Installing 'bashrc' customizations..."
-    # Check if customizations already exist
-    if grep -q "# system-wide customizations" /etc/bashrc 2>/dev/null; then
+    # choose system-wide bashrc: prefer /etc/bashrc, fallback to /etc/bash.bashrc
+    if [ -e /etc/bashrc ]; then
+        TARGET_BASHRC="/etc/bashrc"
+    elif [ -e /etc/bash.bashrc ]; then
+        TARGET_BASHRC="/etc/bash.bashrc"
+    else
+        echo "No system-wide bashrc file found (tried /etc/bashrc and /etc/bash.bashrc)."
+        rm -f "$TEMP_BASHRC"
+        return 1
+    fi
+
+    echo "Installing 'bashrc' customizations into $TARGET_BASHRC..."
+    # check if customizations already exist
+    if grep -q "# system-wide customizations" "$TARGET_BASHRC" 2>/dev/null; then
         echo "Bashrc customizations already present, skipping..."
         rm -f "$TEMP_BASHRC"
         return 0
     fi
 
-    # Insert customizations before the vim modeline comment
-    if grep -q "# vim:ts=4:sw=4" /etc/bashrc; then
-        # Remove the vim modeline, append our content, then add modeline back
-        sed -i '/# vim:ts=4:sw=4/d' /etc/bashrc
-        cat "$TEMP_BASHRC" >> /etc/bashrc
-        echo "" >> /etc/bashrc
-        echo "# vim:ts=4:sw=4" >> /etc/bashrc
+    # insert customizations before the vim modeline comment if present
+    if grep -q "# vim:ts=4:sw=4" "$TARGET_BASHRC"; then
+        # remove the vim modeline, append our content, then add modeline back
+        sed -i '/# vim:ts=4:sw=4/d' "$TARGET_BASHRC"
+        cat "$TEMP_BASHRC" >> "$TARGET_BASHRC"
+        echo "" >> "$TARGET_BASHRC"
+        echo "# vim:ts=4:sw=4" >> "$TARGET_BASHRC"
     else
-        # No vim modeline, just append
-        cat "$TEMP_BASHRC" >> /etc/bashrc
+        # no vim modeline, just append
+        cat "$TEMP_BASHRC" >> "$TARGET_BASHRC"
     fi
 
     rm -f "$TEMP_BASHRC"
@@ -259,6 +270,11 @@ main() {
         ubuntu | debian | raspbian)
             curl_check_deb
             apt-get remove -qq -y ufw 2>/dev/null || true
+
+            # add fastfetch PPA
+            sudo add-apt-repository ppa:zhangsongcui3371/fastfetch
+            sudo apt update
+
             apt-get install -qq -y tar nano tuned firewalld fastfetch btop
             curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir /usr/bin -y
             chmod +x /usr/bin/starship
@@ -331,13 +347,12 @@ main() {
     echo
 }
 
-if [ "$(id -u)" -ne 0 ] || [ -z "${SUDO_USER:-}" ]; then
-    echo "This script must be run as a regular user via sudo."
-    echo
-    echo "Please file an issue at https://github.com/ytcalifax/dotfiles"
-    echo "if you think the behavior is not intended."
-    exit 1
+if [ "$(id -u)" -eq 0 ] && [ -z "${SUDO_USER-}" ]; then
+  echo "This script must be run as a regular user via sudo."
+  echo
+  echo "Please file an issue at https://github.com/ytcalifax/dotfiles"
+  echo "if you think the behavior is not intended."
+  exit 1
 fi
 
 main
-
