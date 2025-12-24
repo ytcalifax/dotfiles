@@ -169,7 +169,7 @@ install_repo_rhel() {
 
 install_sysctl_config() {
     echo "Downloading 'sysctl' performance tuning configuration..."
-    SYSCTL_CONFIG_URL="https://raw.githubusercontent.com/ytcalifax/dotfiles/refs/heads/main/etc/sysctl.d/99-performance-tuning.conf"
+    SYSCTL_CONFIG_URL="https://raw.githubusercontent.com/ytcalifax/dotfiles/refs/heads/master/etc/sysctl.d/99-performance-tuning.conf"
     TEMP_SYSCTL=$(mktemp)
 
     if ! curl -sS "$SYSCTL_CONFIG_URL" -o "$TEMP_SYSCTL"; then
@@ -191,7 +191,7 @@ install_sysctl_config() {
 
 install_bashrc_customizations() {
     echo "Downloading 'bashrc' customizations..."
-    BASHRC_URL="https://raw.githubusercontent.com/ytcalifax/dotfiles/refs/heads/main/etc/bashrc"
+    BASHRC_URL="https://raw.githubusercontent.com/ytcalifax/dotfiles/refs/heads/master/etc/bashrc"
     TEMP_BASHRC=$(mktemp)
 
     if ! curl -sS "$BASHRC_URL" -o "$TEMP_BASHRC"; then
@@ -226,7 +226,7 @@ install_bashrc_customizations() {
 
 install_starship_config() {
     echo "Downloading 'starship.rs' configuration..."
-    STARSHIP_CONFIG_URL="https://raw.githubusercontent.com/ytcalifax/dotfiles/refs/heads/main/.config/starship.toml"
+    STARSHIP_CONFIG_URL="https://raw.githubusercontent.com/ytcalifax/dotfiles/refs/heads/master/.config/starship.toml"
     TEMP_CONFIG=$(mktemp)
 
     if ! curl -sS "$STARSHIP_CONFIG_URL" -o "$TEMP_CONFIG"; then

