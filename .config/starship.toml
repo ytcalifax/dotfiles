@@ -70,7 +70,7 @@ format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
 
 [os.symbols]
 AlmaLinux = ""
-Ubuntu = "󰕈"
+Ubuntu = ""
 SUSE = ""
 Raspbian = ""
 Mint = "󰣭"
